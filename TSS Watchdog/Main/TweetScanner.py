@@ -4,6 +4,7 @@ class ScanningStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         print("Status:",end=' ')
         print(status.text)
+        print()
 
     def on_error(self, status_code):
         print("Error while trying to stream! (Error code: ",status_code,")")
@@ -29,5 +30,5 @@ def connect():
 
     print("Initializing Stream")
     stream = tweepy.Stream(auth = api.auth, listener = ScanningStreamListener())
-    stream.filter(track=['python'])
+    stream.filter(locations=[-180,-90,180,90])
     print("Finished connecting")
