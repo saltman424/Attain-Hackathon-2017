@@ -31,10 +31,14 @@ def average_buzzword_score(user, tweets):
 
 
 def wordcloud_score(user, tweets):
-    max_score = 2.5 * threshold_score
+    max_score = 2 * threshold_score
 
     wordcloud = WordCloud()
     for tweet in tweets:
         wordcloud.add_words_from(tweet.text)
 
     return max_score * wordcloud.similarity_to(tp.basis_wordcloud), "Sorry no information to give right now"
+
+
+def profile_nn_score(user):
+    return 0

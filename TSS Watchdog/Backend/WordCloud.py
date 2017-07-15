@@ -30,7 +30,6 @@ class WordCloud:
             our_frequency = self.word_counts[word] / self.total_count
             their_frequency = (0 if other.total_count == 0 or word not in other.word_counts else other.word_counts[word] / other.total_count)
             similarity -= abs(our_frequency - their_frequency)
-        print(similarity)
         return similarity
 
     def load(self, file_name):
