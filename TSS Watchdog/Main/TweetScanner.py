@@ -1,11 +1,12 @@
 import tweepy
 
-import TweetProcessor as stp
+import TweetProcessor as tp
+import EthanTweetProcessor as etp
 
 
 class ScanningStreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        stp.process_status(status)
+        tp.process_status(status)
 
     def on_error(self, status_code):
         print("Error while trying to stream! (Error code: ",status_code,")")
