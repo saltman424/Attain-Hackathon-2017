@@ -22,7 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Main.py; TweetScanner.py; UserClassifier.py" />
+    <Compile Include="Main.py; TweetScanner.py; TweetScannerClassifier.py; TweetScannerNN.py; UserScanner.py; UserScannerClassifier.py; UserScannerNN.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
