@@ -1,5 +1,5 @@
 import TweetScanner as ts
-import UserClassifier as uc
+import UserScanner as us
 import time
 
 ts.connect()
