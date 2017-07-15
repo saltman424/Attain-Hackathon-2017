@@ -1,7 +1,6 @@
 import tweepy
 
 import TweetProcessor as tp
-import EthanTweetProcessor as etp
 
 import TwitterConnectionAPI as tca
 
