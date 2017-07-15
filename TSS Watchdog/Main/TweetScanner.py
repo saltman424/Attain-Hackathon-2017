@@ -21,7 +21,7 @@ def connect():
     auth = tweepy.OAuthHandler("i4SQAovlLNQhflgfFy1pMVVT6",                         # Consumer Key
                            "F0FK9sOkOD3DmOMOivPESfQP2Vx6da2addUE0FApd1qVurtybK")    # Consumer Secret
 
-    auth.set_access_token("886035091448893442hOwTGGgxrbWyO72GQPI48I9WBkCVhsd",      # Access token
+    auth.set_access_token("886035091448893442-hOwTGGgxrbWyO72GQPI48I9WBkCVhsd",      # Access token
                            "Vb2iNiH266zAwYr6J8iNLEflS4h8JS8KlUY6JbPFoOCun")         # Access Secret
 
     print("Getting API")
