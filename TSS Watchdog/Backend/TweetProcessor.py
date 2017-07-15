@@ -50,5 +50,13 @@ def train_basis_wordcloud_on(user, cleanup_afterwards=False):
 
 def write_to_file(status):
     json_str = json.dumps(status._json)
-    output_file = open("suspicious-tweets.json","a")
-    output_file.write(json_str)
+    output_file = open("suspicious-tweets.json","w+")
+    current_str = output_file.read()
+    if len(current_str) == 0 or current_str[0] != "[":
+        current_str = "[" + current_str
+    else:
+        current_str += ","
+    if current_str[-1] == "]":
+        current_str = current_str[:-1]
+    current_str += "\n" + json_str + "]"
+    output_file.write(current_str)

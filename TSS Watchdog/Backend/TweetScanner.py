@@ -32,6 +32,6 @@ def start():
 
     print("Initializing Stream")
     stream = tweepy.Stream(auth = tca.api.auth, listener = ScanningStreamListener())
-    stream.filter(track=["depress", "bullied", "abuse", "hurting", "lonely", "empty inside", "kill myself"], languages=["en"])
+    stream.filter(track=["depress", "hurting", "lonely", "empty inside", "kill myself"], languages=["en"])
     if is_running:
         print("Streaming tweets")
