@@ -1,3 +1,6 @@
+import re
+from textblob import TextBlob
+
 import TweetProcessor as tp
 from WordCloud import WordCloud
 
@@ -13,6 +16,9 @@ def is_suspicious(status):
 
     wordcloud_results = wordcloud_score(status.text)
     score += wordcloud_results[0]
+
+    sentiment_results = sentiment_score(status.text)
+    score += sentiment_results[0]
 
     return score >= threshold_score, score
 
@@ -85,3 +91,13 @@ def wordcloud_score(text):
     max_score = 3 * threshold_score
     wordcloud = WordCloud(text)
     return max_score * wordcloud.similarity_to(tp.basis_wordcloud),"Sorry no information to give right now"
+
+
+def sentiment_score(text):
+    max_score = 0.5 * threshold_score
+
+    text = ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w +:\ / \ / \S +)", " ", text).split())
+    analysis = TextBlob(text)
+
+    #polarity range: [-1,1]
+    return -analysis.sentiment.polarity * max_score,"Sorry no information to give right now"

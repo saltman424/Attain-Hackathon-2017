@@ -47,16 +47,10 @@ def train_basis_wordcloud_on(user, cleanup_afterwards=False):
     basis_wordcloud.train_on_twitter_user(user, cleanup_afterwards)
     basis_wordcloud.save_as(basis_wordcloud_file_name)
 
-
+json_strs = []
 def write_to_file(status):
-    json_str = json.dumps(status._json)
-    output_file = open("suspicious-tweets.json","w+")
-    current_str = output_file.read()
-    if len(current_str) == 0 or current_str[0] != "[":
-        current_str = "[" + current_str
-    else:
-        current_str += ","
-    if current_str[-1] == "]":
-        current_str = current_str[:-1]
-    current_str += "\n" + json_str + "]"
-    output_file.write(current_str)
+    global json_strs
+    if len(json_strs) >= 20:
+        json_strs = json_strs[1:]
+    json_strs.append(json.dumps(status._json))
+    open("suspicious-tweets.json","w").write(str(json_strs))
