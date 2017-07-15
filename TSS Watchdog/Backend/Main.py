@@ -8,7 +8,7 @@ import TrainingData as trainer
 normal = 1
 training = 2
 
-run_type = training
+run_type = normal
 
 
 

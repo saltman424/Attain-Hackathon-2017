@@ -82,6 +82,6 @@ def buzzword_score(text):
 def wordcloud_score(text):
     text.lower()
 
-    max_score = 2 * threshold_score
+    max_score = 3 * threshold_score
     wordcloud = WordCloud(text)
     return max_score * wordcloud.similarity_to(tp.basis_wordcloud),"Sorry no information to give right now"
