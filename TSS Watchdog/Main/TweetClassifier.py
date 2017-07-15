@@ -38,7 +38,8 @@ def buzzword_score(text):
         [["feel","worthless"],1],
         [["end","life"],1],
         [["want","escape"],1],
-        [["miss","so","much"],1]
+        [["miss","so","much"],1],
+        [["feel","lonely"],1]
     ]
     for series in buzzwords:
         suspicious = True
