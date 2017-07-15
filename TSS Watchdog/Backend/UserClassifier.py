@@ -1,25 +1,21 @@
-from WordCloud import WordCloud
 import TweetClassifier as tc
-import TwitterConnectionDetails as tcd
+import TwitterConnectionAPI as tcd
+import TweetProcessor as tp
+from WordCloud import WordCloud
 
-
-threshold_score = 0.1
-basis_wordcloud = WordCloud().load("basis_wordcloud.json")
+threshold_score = 0.2
 
 
 def is_suspicious(user):
+
     score = 0
 
-    tweets = tcd.api.user_timeline(screen_name=user.screen_name, count=100)
 
     average_buzzword_results = average_buzzword_score(user, tweets)
     score += average_buzzword_results[0]
 
-    #wordcloud_results = wordcloud_score(user, tweets)
-    #score += wordcloud_results[0]
-    for tweet in tweets:
-        basis_wordcloud.add_words_from(tweet.text)
-    basis_wordcloud.save_as("basis_wordcloud.json")
+    wordcloud_results = wordcloud_score(user, tweets)
+    score += wordcloud_results[0]
 
     return score >= threshold_score, score
 
@@ -38,4 +34,4 @@ def wordcloud_score(user, tweets):
     for tweet in tweets:
         wordcloud.add_words_from(tweet.text)
 
-    return max_score * basis_wordcloud.similarity_to(wordcloud), "Sorry no information to give right now"
+    return max_score * wordcloud.similarity_to(tp.basis_wordcloud), "Sorry no information to give right now"

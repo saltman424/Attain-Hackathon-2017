@@ -1,8 +1,8 @@
+import TweetProcessor as tp
 from WordCloud import WordCloud
 
 
 threshold_score = 3
-basis_wordcloud = WordCloud()
 
 
 def is_suspicious(status):
@@ -11,8 +11,8 @@ def is_suspicious(status):
     buzzword_results = buzzword_score(status.text)
     score += buzzword_results[0]
 
-    #wordcloud_results = wordcloud_score(status.text)
-    #score += wordcloud_results[0]
+    wordcloud_results = wordcloud_score(status.text)
+    score += wordcloud_results[0]
 
     return score >= threshold_score, score
 
@@ -29,7 +29,7 @@ def buzzword_score(text):
         [["pain"],2],
         [["depress"],4], # handles depressed or depression, or other variants
         [["make", "pay"],4],
-        [["suicide"],2],
+        [["suicid"],2],
         [["better","dead"],6],
         [["bullied"],2],
         [["feel","trapped"],4],
@@ -53,9 +53,16 @@ def buzzword_score(text):
         [["lonely"],1],
         [["I "],0.5],
         [[" me"],0.5],
-        [["myself"],0.5]
+        [["myself"],0.5],
+        [["again"],1],
 
-
+        [["clinton"],-2],
+        [["trump"],-2],
+        [["politic"],-2],
+        [["democrat"],-2],
+        [["republic"],-2],
+        [[" bot "], -2],
+        [["govern"], -2]
     ]
 
     suspicious_series = []
@@ -77,4 +84,4 @@ def wordcloud_score(text):
 
     max_score = 2 * threshold_score
     wordcloud = WordCloud(text)
-    return max_score * basis_wordcloud.similarity_to(wordcloud),"Sorry no information to give right now"
+    return max_score * wordcloud.similarity_to(tp.basis_wordcloud),"Sorry no information to give right now"

@@ -3,7 +3,7 @@ import tweepy
 import TweetProcessor as tp
 import EthanTweetProcessor as etp
 
-import TwitterConnectionDetails as tcd
+import TwitterConnectionAPI as tca
 
 is_running = True
 
@@ -27,10 +27,11 @@ def running():
 
 def start():
     print("Setting up connection")
-    tcd.connect()
+    if not tca.is_connected():
+        tca.connect()
 
     print("Initializing Stream")
-    stream = tweepy.Stream(auth = tcd.api.auth, listener = ScanningStreamListener())
+    stream = tweepy.Stream(auth = tca.api.auth, listener = ScanningStreamListener())
     stream.filter(track=["depress", "bullied", "abuse", "hurting", "lonely", "empty inside", "kill myself"], languages=["en"])
     if is_running:
         print("Streaming tweets")
