@@ -1,16 +1,11 @@
 import tweepy
 
-import TweetClassifier as tc
-import Helper as h
+import TweetProcessor as stp
 
 
 class ScanningStreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        if not status.retweeted and "RT @" not in status.text:
-            print(status.text)
-            if tc.is_suspicious(status):
-                print("************************************************************* Suspicious User: " + h.user_to_string(status.user) + " *************************************************************")
-            print("")
+        stp.process_status(status)
 
     def on_error(self, status_code):
         print("Error while trying to stream! (Error code: ",status_code,")")
