@@ -1,7 +1,8 @@
-import TweetScanner as ts
-import UserScanner as us
 import time
 
-ts.connect()
+import TweetScanner as ts
+
+
+ts.start()
 while ts.running():
     time.sleep(60)
