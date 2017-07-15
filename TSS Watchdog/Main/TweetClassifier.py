@@ -1,7 +1,7 @@
 import UserClassifier as uc
 
 
-threshold_score = 10
+threshold_score = 2
 
 
 def is_suspicious(status):
@@ -12,44 +12,50 @@ def is_suspicious(status):
 
 
 def is_suspicious_tweet(status):
-    return buzzword_score(status.text) >= threshold_score
+    score = 0
+
+    buzzword_results = buzzword_score(status.text)
+    score += buzzword_results[0]
+
+    return score >= threshold_score
 
 
 def buzzword_score(text):
     # List of words or phrases that indicate a suspicious tweet
     #  (List is in disjunctive normal form)
     buzzwords = [
-        [["kill myself"],1],
-        [["hurt"],1],
+        [["kill myself"],8],
+        [["hurt"],3],
         [["hate"],1],
-        [["pain"],1],
-        [["depress"],1], # handles depressed or depression, or other variants
-        [["make", "pay"],1],
-        [["suicide"],1],
-        [["better","dead"],1],
+        [["pain"],2],
+        [["depress"],5], # handles depressed or depression, or other variants
+        [["make", "pay"],4],
+        [["suicide"],2],
+        [["better","dead"],6],
         [["bullied"],1],
-        [["feel","trapped"],1],
+        [["feel","trapped"],4],
         [["anger"],1],
         [["angry"],1],
-        [["no","reason","live"],1],
-        [["want","dead"],1],
-        [["wish","dead"],1],
-        [["feel","empty"],1],
-        [["feel","worthless"],1],
-        [["end","life"],1],
+        [["no","reason","live"],8],
+        [["want","dead"],2],
+        [["wish","dead"],2],
+        [["feel","empty"],3],
+        [["feel","worthless"],3],
+        [["end","life"],5],
         [["want","escape"],1],
-        [["miss","so","much"],1],
-        [["feel","lonely"],1]
+        [["miss","so","much"],3],
+        [["feel","lonely"],3]
     ]
+
+    suspicious_series = []
+
+    score = 0
     for series in buzzwords:
         suspicious = True
-        for buzzword in series:
+        for buzzword in series[0]:
             if buzzword not in text:
                 suspicious = False
         if suspicious:
-            output = "Suspicious words: "
-            for word in series:
-                output += word + " "
-            print(output)
-            return True
-    return False
+            suspicious_series.append(series[0])
+            score += series[1]
+    return score,suspicious_series
