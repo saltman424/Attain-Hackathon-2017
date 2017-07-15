@@ -1,5 +1,5 @@
 import TweetClassifier as tc
-import TwitterConnectionAPI as tcd
+import TwitterConnectionAPI as tca
 import TweetProcessor as tp
 from WordCloud import WordCloud
 
@@ -10,6 +10,9 @@ def is_suspicious(user):
 
     score = 0
 
+    tweets = tca.get_tweets_from(user)
+    if tweets is None:
+        return False, None
 
     average_buzzword_results = average_buzzword_score(user, tweets)
     score += average_buzzword_results[0]
@@ -28,7 +31,7 @@ def average_buzzword_score(user, tweets):
 
 
 def wordcloud_score(user, tweets):
-    max_score = threshold_score
+    max_score = 2.5 * threshold_score
 
     wordcloud = WordCloud()
     for tweet in tweets:
