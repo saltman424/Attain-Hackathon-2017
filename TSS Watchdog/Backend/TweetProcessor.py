@@ -1,3 +1,5 @@
+import json
+
 import TweetClassifier as tc
 import UserClassifier as uc
 from WordCloud import WordCloud
@@ -19,6 +21,7 @@ def process_status(status):
             is_suspicious_user, user_score = uc.is_suspicious(status.user)
             print("User suspiciousness: " + str(user_score) + " / " + str(uc.threshold_score))
             if is_suspicious_user:
+                write_to_file(status)
                 print("**********************************************************************************************************************************************************")
                 print("*********************************** Suspicious User: " + user_to_string(status.user) + " ***********************************")
                 print("**********************************************************************************************************************************************************")
@@ -43,3 +46,9 @@ def user_to_string(user):
 def train_basis_wordcloud_on(user, cleanup_afterwards=False):
     basis_wordcloud.train_on_twitter_user(user, cleanup_afterwards)
     basis_wordcloud.save_as(basis_wordcloud_file_name)
+
+
+def write_to_file(status):
+    json_str = json.dumps(status._json)
+    output_file = open("suspicious-tweets.json","a")
+    output_file.write(json_str)
